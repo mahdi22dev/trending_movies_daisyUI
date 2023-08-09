@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import TextTruncate from "react-text-truncate";
 
 const Card = ({ movie }) => {
   return (
-    <div className='group/card card w-[80%] mx-auto sm:m-3  sm:w-auto bg-base-100 shadow-xl h-96 image-full relative'>
+    <div className='group/card card w-[90%] mx-auto sm:m-3  sm:w-auto bg-base-100 shadow-xl h-96 image-full relative'>
       <figure className='relative w-full p-1 '>
         <Image
           alt='Movie'
@@ -14,12 +15,40 @@ const Card = ({ movie }) => {
         />
       </figure>
       <div className='card-body'>
-        <h2 className='card-title group-hover/card:text-primary'>
+        <h2 className='card-title relative group-hover/card:text-primary'>
           {movie.title}
+          <span class='absolute inset-x-0 bottom-0 h-1 bg-primary origin-bottom scale-x-0 group-hover/card:scale-x-100 mt-4 transition-transform duration-300'></span>
         </h2>
-        {/* <p>{movie.overview}</p> */}
+
+        <p id='text' className=' max-w-xs h-12 mt-2'>
+          <TextTruncate
+            line={4}
+            element='span'
+            truncateText='…'
+            text={movie.overview}
+            textTruncateChild={
+              <a
+                href={`https://www.themoviedb.org/${movie.media_type}/${movie.id}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='link link-primary'
+              >
+                Read More
+              </a>
+            }
+          />
+        </p>
+
         <div className='card-actions absolute bottom-4 right-3 '>
-          <button className='btn btn-primary '>More Details</button>
+          <button className='btn btn-primary '>
+            <a
+              href={`https://www.themoviedb.org/${movie.media_type}/${movie.id}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              More Details
+            </a>
+          </button>
         </div>
       </div>
     </div>

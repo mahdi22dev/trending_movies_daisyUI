@@ -5,7 +5,6 @@ import { getRandomNumber } from "@/utils/utils";
 
 const MovieList = ({ movies }) => {
   const [data, setData] = useState(movies);
-  console.log(data);
   const random = getRandomNumber();
   const FetchClientData = async () => {
     const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${random}`;
@@ -20,19 +19,21 @@ const MovieList = ({ movies }) => {
     const res = await fetch(url2, options, { cache: "noe-store" });
     const data = await res.json();
     setData(data);
-    console.log(data);
   };
   useEffect(() => {
     FetchClientData();
   }, []);
 
   return (
-    <div className='w-full'>
+    <div className='w-full grid place-content-center'>
       <div className='max-w-7xl grid place-content-center grid-cols-1 lg:grid-cols-3 gap-4 mx-auto'>
         {data?.results.map((movie) => {
           return <Card key={movie.id} movie={movie} />;
         })}
       </div>
+      <button className='btn btn-secondary btn-outline mx-auto mt-4'>
+        Load More
+      </button>
     </div>
   );
 };
