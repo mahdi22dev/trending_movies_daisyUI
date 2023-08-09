@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Card from "./Card";
 import { getRandomNumber } from "@/utils/utils";
+import { loadMore } from "./actions";
 
 const MovieList = ({ movies }) => {
-  const [data, setData] = useState(movies);
-  const random = getRandomNumber();
+  const [myMovies, setMyMovies] = useState(movies?.results);
+  let [isPending, startTransition] = useTransition();
+  let current = 1;
   const FetchClientData = async () => {
-    const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${random}`;
+    const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${current}`;
     const options = {
       method: "GET",
       headers: {
@@ -16,9 +18,9 @@ const MovieList = ({ movies }) => {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZGU4NmFlNWYzMmEzYjVjYzdlOGZlYjQwZGUwNDJhMSIsInN1YiI6IjY0YTEyNTcxNGE1MmY4MDBhZjEyN2I2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TbYwtxSpkX8VkKoghnxMD7rlXZiSFV6oFwd5iYwvBIY",
       },
     };
-    const res = await fetch(url2, options, { cache: "noe-store" });
+    const res = await fetch(url2, options);
     const data = await res.json();
-    setData(data);
+    setMyMovies(data.results);
   };
   useEffect(() => {
     FetchClientData();
@@ -27,12 +29,26 @@ const MovieList = ({ movies }) => {
   return (
     <div className='w-full grid place-content-center'>
       <div className='max-w-7xl grid place-content-center grid-cols-1 lg:grid-cols-3 gap-4 mx-auto'>
-        {data?.results.map((movie) => {
+        {myMovies?.map((movie) => {
           return <Card key={movie.id} movie={movie} />;
         })}
       </div>
-      <button className='btn btn-secondary btn-outline mx-auto mt-4'>
-        Load More
+      <button
+        onClick={() =>
+          startTransition(async () => {
+            console.log(++current);
+            const newdata = await loadMore(++current);
+            const myMoviesArray = Array.isArray(myMovies) ? myMovies : [];
+            const latest = [...myMoviesArray, ...newdata.results];
+            console.log(latest);
+            // console.log(newdata);
+            // console.log(myMovies);
+            setMyMovies(latest);
+          })
+        }
+        className='btn btn-secondary btn-outline mx-auto mt-4'
+      >
+        {isPending ? "loading" : "  Load More"}
       </button>
     </div>
   );

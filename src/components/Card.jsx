@@ -15,9 +15,8 @@ const Card = ({ movie }) => {
         />
       </figure>
       <div className='card-body'>
-        <h2 className='card-title relative group-hover/card:text-primary'>
+        <h2 className='card-title relative group-hover/card:text-primary group-hover/card:scale-110 group-hover/card:pl-1 text-md lg:text-2xl  after:bg-primary after:mt-2 after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 group-hover/card:after:w-full after:transition-all after:duration-300  '>
           {movie.title}
-          <span class='absolute inset-x-0 bottom-0 h-1 bg-primary origin-bottom scale-x-0 group-hover/card:scale-x-100 mt-4 transition-transform duration-300'></span>
         </h2>
 
         <p id='text' className=' max-w-xs h-12 mt-2'>
@@ -38,7 +37,6 @@ const Card = ({ movie }) => {
             }
           />
         </p>
-
         <div className='card-actions absolute bottom-4 right-3 '>
           <button className='btn btn-primary '>
             <a
