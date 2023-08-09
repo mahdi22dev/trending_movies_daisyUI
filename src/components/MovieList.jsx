@@ -6,10 +6,11 @@ import { loadMore } from "./actions";
 
 const MovieList = ({ movies }) => {
   const [myMovies, setMyMovies] = useState(movies?.results);
+  const [current, setCurrent] = useState(1);
   let [isPending, startTransition] = useTransition();
-  let current = 1;
+
   const FetchClientData = async () => {
-    const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${current}`;
+    const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${1}`;
     const options = {
       method: "GET",
       headers: {
@@ -34,21 +35,29 @@ const MovieList = ({ movies }) => {
         })}
       </div>
       <button
-        onClick={() =>
+        onClick={() => {
+          setCurrent((prev) => {
+            return prev + 1;
+          });
           startTransition(async () => {
-            console.log(++current);
-            const newdata = await loadMore(++current);
+            const newdata = await loadMore(current);
             const myMoviesArray = Array.isArray(myMovies) ? myMovies : [];
             const latest = [...myMoviesArray, ...newdata.results];
-            console.log(latest);
-            // console.log(newdata);
-            // console.log(myMovies);
             setMyMovies(latest);
-          })
-        }
+          });
+        }}
         className='btn btn-secondary btn-outline mx-auto mt-4'
       >
-        {isPending ? "loading" : "  Load More"}
+        {isPending ? (
+          <>
+            <p>Load More</p>
+            <span className='loading loading-spinner loading-xs'></span>
+          </>
+        ) : (
+          <>
+            <p>Load More</p>
+          </>
+        )}
       </button>
     </div>
   );

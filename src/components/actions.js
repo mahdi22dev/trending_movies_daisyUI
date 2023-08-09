@@ -1,6 +1,6 @@
 "use server";
-export const loadMore = async (page) => {
-  const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${page}`;
+export const loadMore = async (current) => {
+  const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${current}`;
   const options = {
     method: "GET",
     headers: {
@@ -11,6 +11,5 @@ export const loadMore = async (page) => {
   };
   const res = await fetch(url2, options);
   const data = await res.json();
-  console.log(data);
   return data;
 };
