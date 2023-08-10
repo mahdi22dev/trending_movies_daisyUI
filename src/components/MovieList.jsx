@@ -50,12 +50,12 @@ const MovieList = ({ movies }) => {
       >
         {isPending ? (
           <>
-            <p>Load More</p>
+            <p>See More</p>
             <span className='loading loading-spinner loading-xs'></span>
           </>
         ) : (
           <>
-            <p>Load More</p>
+            <p>See More</p>
           </>
         )}
       </button>
