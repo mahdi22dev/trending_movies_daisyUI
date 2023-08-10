@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useTransition } from "react";
 import Card from "./Card";
 import { getRandomNumber } from "@/utils/utils";
-import { loadMore } from "./actions";
+import { loadMore } from "@/app/trending/actions";
 
 const MovieList = ({ movies }) => {
   const [myMovies, setMyMovies] = useState(movies?.results);
