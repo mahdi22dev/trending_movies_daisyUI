@@ -26,7 +26,7 @@ const Navbar = () => {
           <ul className='menu pt-20 pl-1 p-10 w-80 h-full bg-base-200 text-base-content'>
             {links.map((link) => {
               return (
-                <li className='hover:pl-3 transition-all '>
+                <li key={link.id} className='hover:pl-3 transition-all '>
                   <Link className='hover:text-primary' href={"/"}>
                     {link.name}
                   </Link>
