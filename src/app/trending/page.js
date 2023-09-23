@@ -17,6 +17,7 @@ export default async function page() {
       <h1 className=' text-2xl lg:text-4xl mb-5  text-center md:text-left'>
         List of trending Movies and Tv shows in this week
       </h1>
+
       <MovieList movies={movies} />
     </main>
   );

@@ -1,5 +1,5 @@
 "use server";
-export const loadMore = async (current) => {
+export const FetchTrends = async (current) => {
   const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${current}`;
   const options = {
     method: "GET",

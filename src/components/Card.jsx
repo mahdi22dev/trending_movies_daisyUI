@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import TextTruncate from "react-text-truncate";
 
 const Card = ({ movie }) => {
-  console.log(movie);
   const { title, backdrop_path, overview, media_type, id } = movie;
   return (
     <div className='group/card card w-[90%] mx-auto sm:m-3  sm:w-auto bg-base-100 shadow-xl h-96 image-full relative'>
@@ -18,7 +17,7 @@ const Card = ({ movie }) => {
       </figure>
       <div className='card-body'>
         <h2 className='card-title relative group-hover/card:text-primary group-hover/card:scale-110 group-hover/card:pl-1 text-md lg:text-2xl  after:bg-primary after:mt-2 after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 group-hover/card:after:w-full after:transition-all after:duration-300  '>
-          {title}
+          {title ?? "Title"}
         </h2>
 
         <p id='text' className=' max-w-xs h-12 mt-2'>

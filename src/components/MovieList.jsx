@@ -10,7 +10,7 @@ const MovieList = ({ movies }) => {
   let [isPending, startTransition] = useTransition();
 
   const FetchClientData = async () => {
-    const url2 = `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${1}`;
+    const url2 = `https://api.themoviedb.org/3/trending/all/week?language=en-US&page=${1}`;
     const options = {
       method: "GET",
       headers: {
